@@ -2,7 +2,7 @@
 
 <p align="center">
   Create a GitHub profile README in a few minutes. Free, open source, and it runs entirely in your browser.<br/>
-  <strong><a href="https://bonmustafademirci.github.io/readme-forge/">Open the generator</a></strong>
+  <strong><a href="https://benmustafademirci.github.io/readme-forge/">Open the generator</a></strong>
 </p>
 
 <p align="center">
