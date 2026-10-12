@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ReadmeForge: GitHub profile README generator</title>
+  <meta name="description" content="Create a GitHub profile README in minutes. Free, open source, runs in your browser. English and Turkish." />
+  <meta property="og:title" content="ReadmeForge: GitHub profile README generator" />
+  <meta property="og:description" content="Fill in a short form, pick your skills and stats cards, copy your README." />
+  <meta name="theme-color" content="#1a7f37" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='8' height='8' rx='2' fill='%2340c463'/%3E%3Crect x='12' y='2' width='8' height='8' rx='2' fill='%23216e39'/%3E%3Crect x='22' y='2' width='8' height='8' rx='2' fill='%239be9a8'/%3E%3Crect x='2' y='12' width='8' height='8' rx='2' fill='%23216e39'/%3E%3Crect x='12' y='12' width='8' height='8' rx='2' fill='%2330a14e'/%3E%3Crect x='22' y='12' width='8' height='8' rx='2' fill='%2340c463'/%3E%3Crect x='2' y='22' width='8' height='8' rx='2' fill='%239be9a8'/%3E%3Crect x='12' y='22' width='8' height='8' rx='2' fill='%2340c463'/%3E%3Crect x='22' y='22' width='8' height='8' rx='2' fill='%23216e39'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script>
+    /* apply saved theme before paint to avoid a flash */
+    try { var p = JSON.parse(localStorage.getItem('readmeforge:prefs') || '{}'); if (p.theme) document.documentElement.setAttribute('data-theme', p.theme); } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#form-panel" data-i18n="nav.generator">Generator</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="ReadmeForge">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="8" height="8" rx="2" class="l2"/><rect x="12" y="2" width="8" height="8" rx="2" class="l4"/><rect x="22" y="2" width="8" height="8" rx="2" class="l1"/>
+          <rect x="2" y="12" width="8" height="8" rx="2" class="l4"/><rect x="12" y="12" width="8" height="8" rx="2" class="l3"/><rect x="22" y="12" width="8" height="8" rx="2" class="l2"/>
+          <rect x="2" y="22" width="8" height="8" rx="2" class="l1"/><rect x="12" y="22" width="8" height="8" rx="2" class="l2"/><rect x="22" y="22" width="8" height="8" rx="2" class="l4"/>
+        </svg>
+        <span class="brand-name">ReadmeForge</span>
+      </a>
+      <nav class="topnav" aria-label="Main">
+        <a href="#how-to" class="topnav-link hide-sm" data-i18n="nav.howto">How to publish</a>
+        <button type="button" class="btn-ghost" id="lang-toggle" data-i18n="lang.toggle">Türkçe</button>
+        <button type="button" class="icon-btn" id="theme-toggle" data-i18n-title="theme.toggle" title="Switch light/dark theme" aria-label="Switch light/dark theme">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <a class="star-btn" id="star-link" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+          <span class="star-label" data-i18n="footer.star">Star on GitHub</span>
+          <span class="star-count" id="star-count" hidden></span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- progress: one square per step, shaded like a contribution graph -->
+    <section class="progress" aria-label="Progress">
+      <div class="progress-text">
+        <p class="progress-step" id="progress-step">Step 1 of 6</p>
+        <p class="progress-legend">
+          <span data-i18n="steps.legend">Each square fills in as you complete that step.</span>
+        </p>
+      </div>
+      <ol class="stepper" id="stepper"></ol>
+    </section>
+
+    <div class="workspace" id="workspace">
+      <section class="panel form-panel" id="form-panel" tabindex="-1">
+        <div class="panel-tools">
+          <button type="button" class="icon-btn" id="btn-export" data-i18n-title="btn.export" title="Save settings" aria-label="Save settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-import" data-i18n-title="btn.import" title="Load settings" aria-label="Load settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M4 19h16"/></svg>
+          </button>
+          <button type="button" class="icon-btn danger" id="btn-clear" data-i18n-title="btn.clear" title="Clear all" aria-label="Clear all">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
+          </button>
+          <input type="file" id="import-file" accept="application/json,.json" hidden />
+        </div>
+
+        <!-- Step 1: About -->
+        <div class="step-pane" data-pane="0">
+          <h1 class="pane-title" data-i18n="basic.title">Tell people about yourself</h1>
+          <p class="pane-desc" data-i18n="basic.desc">Leave anything blank that you don’t want on your profile.</p>
+
+          <div class="quick">
+            <div class="quick-text">
+              <h2 data-i18n="quick.title">Start from your GitHub account</h2>
+              <p data-i18n="quick.desc">We read your public profile and repositories to fill in empty fields and suggest skills.</p>
+            </div>
+            <form class="quick-form" id="autofill-form">
+              <label class="sr-only" for="gh-user" data-i18n="quick.placeholder">GitHub username</label>
+              <span class="input-group">
+                <span class="prefix">github.com/</span>
+                <input id="gh-user" data-bind="ghUser" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-ph="quick.placeholder" placeholder="GitHub username" />
+              </span>
+              <button type="submit" class="btn btn-primary" id="autofill-btn" data-i18n="quick.button">Auto-fill</button>
+            </form>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="f-name" data-i18n="f.name">Your name</label>
+              <input id="f-name" data-bind="name" autocomplete="name" placeholder="Mustafa Demirci" />
+            </div>
+            <div class="field">
+              <label for="f-subtitle" data-i18n="f.subtitle">Headline</label>
+              <input id="f-subtitle" data-bind="subtitle" data-i18n-ph="f.subtitle.ph" />
+            </div>
+          </div>
+          <div class="field"><label for="f-working" data-i18n="f.workingOn"></label><textarea id="f-working" rows="2" data-bind="workingOn"></textarea></div>
+          <div class="field"><label for="f-learning" data-i18n="f.learning"></label><textarea id="f-learning" rows="2" data-bind="learning"></textarea></div>
+          <div class="field"><label for="f-collab" data-i18n="f.collaborate"></label><textarea id="f-collab" rows="2" data-bind="collaborate"></textarea></div>
+          <div class="field"><label for="f-help" data-i18n="f.helpWith"></label><textarea id="f-help" rows="2" data-bind="helpWith"></textarea></div>
+          <div class="field"><label for="f-ask" data-i18n="f.askMe"></label><textarea id="f-ask" rows="2" data-bind="askMe"></textarea></div>
+          <div class="grid-2">
+            <div class="field"><label for="f-reach" data-i18n="f.reachMe"></label><input id="f-reach" data-bind="reachMe" data-i18n-ph="f.reachMe.ph" /></div>
+            <div class="field"><label for="f-pronouns" data-i18n="f.pronouns"></label><input id="f-pronouns" data-bind="pronouns" placeholder="he/him" /></div>
+          </div>
+          <div class="field"><label for="f-fun" data-i18n="f.funFact"></label><textarea id="f-fun" rows="2" data-bind="funFact"></textarea></div>
+        </div>
+
+        <!-- Step 2: Links -->
+        <div class="step-pane" data-pane="1" hidden>
+          <h1 class="pane-title" data-i18n="links.title">Links and projects</h1>
+          <p class="pane-desc" data-i18n="links.desc">Point visitors to your work.</p>
+          <div class="field"><label for="f-portfolio" data-i18n="f.portfolio"></label><input id="f-portfolio" type="url" data-bind="portfolio" placeholder="https://yourname.dev" /></div>
+          <div class="field"><label for="f-blog" data-i18n="f.blog"></label><input id="f-blog" type="url" data-bind="blog" placeholder="https://blog.yourname.dev" /></div>
+          <div class="field"><label for="f-resume" data-i18n="f.resume"></label><input id="f-resume" type="url" data-bind="resume" placeholder="https://yourname.dev/cv.pdf" /></div>
+          <div class="field">
+            <label for="f-featured" data-i18n="f.featured"></label>
+            <input id="f-featured" data-bind="featured" data-i18n-ph="f.featured.ph" spellcheck="false" autocapitalize="off" />
+            <p class="hint" data-i18n="f.featured.hint"></p>
+          </div>
+        </div>
+
+        <!-- Step 3: Social -->
+        <div class="step-pane" data-pane="2" hidden>
+          <h1 class="pane-title" data-i18n="social.title">Where can people find you?</h1>
+          <p class="pane-desc" data-i18n="social.desc">Type a username or paste a full link.</p>
+          <div class="field field-inline">
+            <label for="f-badge-style" data-i18n="f.badgeStyle">Badge style</label>
+            <select id="f-badge-style" data-bind="badgeStyle"></select>
+          </div>
+          <div class="badge-preview" id="badge-preview" aria-live="polite"></div>
+          <div class="social-grid" id="social-grid"></div>
+        </div>
+
+        <!-- Step 4: Skills -->
+        <div class="step-pane" data-pane="3" hidden>
+          <h1 class="pane-title" data-i18n="skills.title">Languages and tools</h1>
+          <p class="pane-desc" data-i18n="skills.desc">Pick what you work with. Order follows your clicks.</p>
+          <div class="skills-bar">
+            <label class="sr-only" for="skill-search" data-i18n="skills.search">Search</label>
+            <input id="skill-search" type="search" data-i18n-ph="skills.search" autocomplete="off" />
+            <div class="field field-inline">
+              <label for="f-skill-theme" data-i18n="f.skillTheme">Icon theme</label>
+              <select id="f-skill-theme" data-bind="skillTheme">
+                <option value="dark" data-i18n="opt.dark">Dark</option>
+                <option value="light" data-i18n="opt.light">Light</option>
+              </select>
+            </div>
+            <div class="field field-inline">
+              <label for="f-perline" data-i18n="f.perLine">Icons per row</label>
+              <input id="f-perline" type="number" min="1" max="50" data-bind="perLine" class="num" />
+            </div>
+          </div>
+          <div class="selected-skills" id="selected-skills">
+            <div class="selected-head">
+              <span class="selected-count" id="selected-count"></span>
+              <button type="button" class="link-btn" id="skills-clear" data-i18n="skills.clear">Clear selection</button>
+            </div>
+            <div class="chips" id="skill-chips"></div>
+          </div>
+          <div id="skill-groups"></div>
+        </div>
+
+        <!-- Step 5: Add-ons -->
+        <div class="step-pane" data-pane="4" hidden>
+          <h1 class="pane-title" data-i18n="addons.title">Stats and extras</h1>
+          <p class="pane-desc" data-i18n="addons.desc">Live cards that update themselves from your GitHub activity.</p>
+          <div class="grid-2">
+            <div class="field">
+              <label for="f-stats-user" data-i18n="f.statsUser">GitHub username for the cards</label>
+              <span class="input-group"><span class="prefix">@</span><input id="f-stats-user" data-bind="statsUser" spellcheck="false" autocapitalize="off" /></span>
+            </div>
+            <div class="field">
+              <label for="f-stats-theme" data-i18n="f.statsTheme">Card theme</label>
+              <select id="f-stats-theme" data-bind="statsTheme"></select>
+            </div>
+          </div>
+          <p class="notice" id="addons-need-user" data-i18n="addons.needUser" hidden></p>
+          <ul class="toggles">
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.visitors" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.visitors"></strong><small data-i18n="addon.visitors.d"></small></span></label></li>
+            <li>
+              <label class="toggle"><input type="checkbox" data-bind="addons.typing" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.typing"></strong><small data-i18n="addon.typing.d"></small></span></label>
+              <div class="toggle-extra" id="typing-extra" hidden>
+                <label class="sr-only" for="f-typing" data-i18n="addon.typing.ph"></label>
+                <textarea id="f-typing" rows="3" data-bind="typingLines" data-i18n-ph="addon.typing.ph"></textarea>
+              </div>
+            </li>
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.stats" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.stats"></strong><small data-i18n="addon.stats.d"></small></span></label></li>
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.topLangs" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.topLangs"></strong><small data-i18n="addon.topLangs.d"></small></span></label></li>
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.streak" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.streak"></strong><small data-i18n="addon.streak.d"></small></span></label></li>
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.trophies" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.trophies"></strong><small data-i18n="addon.trophies.d"></small></span></label></li>
+            <li><label class="toggle"><input type="checkbox" data-bind="addons.activity" /><span class="switch" aria-hidden="true"></span><span class="toggle-text"><strong data-i18n="addon.activity"></strong><small data-i18n="addon.activity.d"></small></span></label></li>
+          </ul>
+        </div>
+
+        <!-- Step 6: Finish -->
+        <div class="step-pane" data-pane="5" hidden>
+          <h1 class="pane-title" data-i18n="finish.title">Your README is ready</h1>
+          <p class="pane-desc" data-i18n="finish.desc">Copy it or download it, then put it on your profile.</p>
+          <div class="grid-2">
+            <div class="field">
+              <span class="label" id="lbl-readme-lang" data-i18n="f.readmeLang">README language</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="lbl-readme-lang">
+                <label><input type="radio" name="readmeLang" value="en" data-bind="readmeLang" /><span>English</span></label>
+                <label><input type="radio" name="readmeLang" value="tr" data-bind="readmeLang" /><span>Türkçe</span></label>
+              </div>
+            </div>
+            <div class="field">
+              <span class="label" id="lbl-align" data-i18n="f.align">Header alignment</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="lbl-align">
+                <label><input type="radio" name="align" value="center" data-bind="align" /><span data-i18n="opt.center">Centered</span></label>
+                <label><input type="radio" name="align" value="left" data-bind="align" /><span data-i18n="opt.left">Left</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="finish-actions">
+            <button type="button" class="btn btn-primary btn-lg js-copy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+              <span data-i18n="btn.copy">Copy markdown</span>
+            </button>
+            <button type="button" class="btn btn-lg js-download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
+              <span data-i18n="btn.download">Download README.md</span>
+            </button>
+          </div>
+          <section class="howto" id="how-to">
+            <h2 data-i18n="howto.title">Put it on your GitHub profile</h2>
+            <ol id="howto-list"></ol>
+          </section>
+        </div>
+
+        <div class="pane-nav">
+          <button type="button" class="btn" id="btn-back"><span data-i18n="btn.back">Back</span></button>
+          <button type="button" class="btn btn-ghost show-sm" id="btn-preview-toggle" aria-controls="preview-panel" aria-expanded="false"><span data-i18n="btn.showPreview">Show preview</span></button>
+          <button type="button" class="btn btn-primary" id="btn-next"><span data-i18n="btn.next">Next</span></button>
+        </div>
+      </section>
+
+      <aside class="panel preview-panel" id="preview-panel" aria-label="Preview">
+        <div class="preview-head">
+          <div class="tabs" role="tablist">
+            <button type="button" role="tab" class="tab" id="tab-rendered" aria-selected="true" aria-controls="preview-rendered" data-i18n="preview.rendered">Preview</button>
+            <button type="button" role="tab" class="tab" id="tab-markdown" aria-selected="false" aria-controls="preview-markdown" data-i18n="preview.markdown">Markdown</button>
+          </div>
+          <div class="preview-actions">
+            <button type="button" class="icon-btn js-copy" data-i18n-title="btn.copy" title="Copy markdown" aria-label="Copy markdown">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+            </button>
+            <button type="button" class="icon-btn js-download" data-i18n-title="btn.download" title="Download README.md" aria-label="Download README.md">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="readme-frame">
+          <div class="readme-bar">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
+            <span>README.md</span>
+          </div>
+          <div class="preview-body">
+            <article class="markdown-body" id="preview-rendered" role="tabpanel" aria-labelledby="tab-rendered"></article>
+            <pre class="md-source" id="preview-markdown" role="tabpanel" aria-labelledby="tab-markdown" hidden><code id="md-code"></code></pre>
+          </div>
+        </div>
+        <p class="preview-note" data-i18n="preview.note">Cards and badges load from their own services and may take a moment.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-about">
+        <span class="brand-name">ReadmeForge</span>
+        <p data-i18n="footer.about">A free, open-source generator for GitHub profile READMEs.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a id="lnk-source" href="#" target="_blank" rel="noopener" data-i18n="nav.source">Source code</a></li>
+        <li><a id="lnk-issues" href="#" target="_blank" rel="noopener" data-i18n="footer.issue">Report a problem</a></li>
+        <li><a id="lnk-license" href="#" target="_blank" rel="noopener" data-i18n="footer.license">MIT licensed</a></li>
+      </ul>
+      <p class="footer-made"><span data-i18n="footer.made">Made by</span> <a id="lnk-author" href="#" target="_blank" rel="noopener"></a></p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/generator.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
