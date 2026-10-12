@@ -4,7 +4,7 @@ window.RF = window.RF || {};
 /* Change these to your own values before publishing. */
 RF.CONFIG = {
   appName: 'ReadmeForge',
-  repo: 'bonmustafademirci/readme-forge', // owner/repo, used for the star count and footer links
+  repo: 'benmustafademirci/readme-forge', // owner/repo, used for the star count and footer links
   author: { name: 'Mustafa Demirci', url: 'https://mustafademirci.dev' },
   storageKey: 'readmeforge:v1',
   prefsKey: 'readmeforge:prefs'
